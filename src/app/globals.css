@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Navy/Gold design system */
+  --color-navy: #002050;
+  --color-navy-light: #1B3A5C;
+  --color-gold: #C09A36;
+  --color-gold-light: #D4B05C;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Fluent interactive elements */
+  --color-fluent: #0078D4;
+  --color-fluent-hover: #106EBE;
+  --color-fluent-light: #DEECF9;
+
+  /* Surfaces */
+  --color-surface: #FAF9F8;
+  --color-surface-card: #FFFFFF;
+
+  /* Borders */
+  --color-border: #EDEBE9;
+
+  /* Text */
+  --color-text: #323130;
+  --color-text-secondary: #605E5C;
+  --color-text-tertiary: #A19F9D;
+
+  /* C3 Pillar colors */
+  --color-pillar-character: #1B5E20;
+  --color-pillar-competence: #0D47A1;
+  --color-pillar-connection: #E65100;
+  --color-pillar-constitutional: #4A148C;
+
+  /* Training status colors */
+  --color-status-trained: #107C10;
+  --color-status-practiced: #FFB900;
+  --color-status-untrained: #D13438;
+
+  /* Font family */
+  --font-sans: 'Segoe UI', -apple-system, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
 }
