@@ -16,94 +16,167 @@ export async function POST(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Dynamically import demo data
+    // Dynamically import all seed data
     const { DEMO_DATA } = await import("@/lib/data/demo-data");
+    const { TASKS_SEED } = await import("@/lib/data/tasks-seed");
+    const { BEHAVIORAL_INDICATORS } = await import("@/lib/data/indicators-seed");
+    const { COMPASS_QUALITIES } = await import("@/lib/data/compass-qualities");
 
     const results: Record<string, string> = {};
+    const counts: Record<string, number> = {};
 
-    // Seed in order of dependencies
-    // 1. Organizations
-    if (DEMO_DATA.organizations?.length) {
-      const { error } = await supabase.from("organizations").upsert(DEMO_DATA.organizations, { onConflict: "uic" });
-      results.organizations = error ? `Error: ${error.message}` : `${DEMO_DATA.organizations.length} seeded`;
+    // ═══════════════════════════════════════════════════════════════════
+    // PHASE 1: DELETE in reverse FK order (idempotent clean slate)
+    // ═══════════════════════════════════════════════════════════════════
+    const deleteOrder = [
+      "compass_responses",
+      "compass_cycles",
+      "dotmlpf_analyses",
+      "capability_gaps",
+      "idp_records",
+      "behavioral_observations",
+      "metl_designations",
+      "training_events",
+      "personnel",
+      "organizations",
+      // Reference tables — delete demo rows only
+      "tasks_master",
+      "behavioral_indicators",
+      "compass_qualities",
+    ];
+
+    for (const table of deleteOrder) {
+      // For demo data tables, delete rows with demo- prefix IDs
+      // For reference tables, delete all (they'll be re-seeded)
+      const isRefTable = ["tasks_master", "behavioral_indicators", "compass_qualities"].includes(table);
+      if (isRefTable) {
+        const { error } = await supabase.from(table).delete().neq("id", "");
+        if (error) results[`delete_${table}`] = `Error: ${error.message}`;
+      } else {
+        const { error } = await supabase.from(table).delete().like("id", "demo-%");
+        if (error) results[`delete_${table}`] = `Error: ${error.message}`;
+      }
     }
 
-    // 2. Personnel
-    if (DEMO_DATA.personnel?.length) {
-      const { error } = await supabase.from("personnel").upsert(DEMO_DATA.personnel, { onConflict: "id" });
-      results.personnel = error ? `Error: ${error.message}` : `${DEMO_DATA.personnel.length} seeded`;
-    }
+    // ═══════════════════════════════════════════════════════════════════
+    // PHASE 2: INSERT in correct FK order
+    // ═══════════════════════════════════════════════════════════════════
 
-    // 3. Tasks (from seed data)
-    const { TASKS_SEED } = await import("@/lib/data/tasks-seed");
+    // 1. Reference tables (no FK dependencies)
     if (TASKS_SEED?.length) {
       const { error } = await supabase.from("tasks_master").upsert(
         TASKS_SEED.map((t) => ({ ...t, is_active: true })),
         { onConflict: "id" }
       );
-      results.tasks = error ? `Error: ${error.message}` : `${TASKS_SEED.length} seeded`;
+      counts.tasks_master = TASKS_SEED.length;
+      if (error) results.tasks_master = `Error: ${error.message}`;
     }
 
-    // 4. Training Events
-    if (DEMO_DATA.training_events?.length) {
-      const { error } = await supabase.from("training_events").upsert(DEMO_DATA.training_events, { onConflict: "id" });
-      results.training_events = error ? `Error: ${error.message}` : `${DEMO_DATA.training_events.length} seeded`;
-    }
-
-    // 5. Behavioral Observations
-    if (DEMO_DATA.behavioral_observations?.length) {
-      const { error } = await supabase.from("behavioral_observations").upsert(DEMO_DATA.behavioral_observations, { onConflict: "id" });
-      results.observations = error ? `Error: ${error.message}` : `${DEMO_DATA.behavioral_observations.length} seeded`;
-    }
-
-    // 6. Compass Cycles
-    if (DEMO_DATA.compass_cycles?.length) {
-      const { error } = await supabase.from("compass_cycles").upsert(DEMO_DATA.compass_cycles, { onConflict: "id" });
-      results.compass_cycles = error ? `Error: ${error.message}` : `${DEMO_DATA.compass_cycles.length} seeded`;
-    }
-
-    // 7. Compass Responses
-    if (DEMO_DATA.compass_responses?.length) {
-      const { error } = await supabase.from("compass_responses").upsert(DEMO_DATA.compass_responses, { onConflict: "id" });
-      results.compass_responses = error ? `Error: ${error.message}` : `${DEMO_DATA.compass_responses.length} seeded`;
-    }
-
-    // 8. Capability Gaps
-    if (DEMO_DATA.capability_gaps?.length) {
-      const { error } = await supabase.from("capability_gaps").upsert(DEMO_DATA.capability_gaps, { onConflict: "id" });
-      results.capability_gaps = error ? `Error: ${error.message}` : `${DEMO_DATA.capability_gaps.length} seeded`;
-    }
-
-    // 9. DOTMLPF Analyses
-    if (DEMO_DATA.dotmlpf_analyses?.length) {
-      const { error } = await supabase.from("dotmlpf_analyses").upsert(DEMO_DATA.dotmlpf_analyses, { onConflict: "id" });
-      results.dotmlpf_analyses = error ? `Error: ${error.message}` : `${DEMO_DATA.dotmlpf_analyses.length} seeded`;
-    }
-
-    // 10. IDP Records
-    if (DEMO_DATA.idp_records?.length) {
-      const { error } = await supabase.from("idp_records").upsert(DEMO_DATA.idp_records, { onConflict: "id" });
-      results.idp_records = error ? `Error: ${error.message}` : `${DEMO_DATA.idp_records.length} seeded`;
-    }
-
-    // Seed behavioral indicators
-    const { BEHAVIORAL_INDICATORS } = await import("@/lib/data/indicators-seed");
     if (BEHAVIORAL_INDICATORS?.length) {
       const { error } = await supabase.from("behavioral_indicators").upsert(BEHAVIORAL_INDICATORS, { onConflict: "id" });
-      results.indicators = error ? `Error: ${error.message}` : `${BEHAVIORAL_INDICATORS.length} seeded`;
+      counts.behavioral_indicators = BEHAVIORAL_INDICATORS.length;
+      if (error) results.behavioral_indicators = `Error: ${error.message}`;
     }
 
-    // Seed compass qualities
-    const { COMPASS_QUALITIES } = await import("@/lib/data/compass-qualities");
     if (COMPASS_QUALITIES?.length) {
       const { error } = await supabase.from("compass_qualities").upsert(COMPASS_QUALITIES, { onConflict: "id" });
-      results.qualities = error ? `Error: ${error.message}` : `${COMPASS_QUALITIES.length} seeded`;
+      counts.compass_qualities = COMPASS_QUALITIES.length;
+      if (error) results.compass_qualities = `Error: ${error.message}`;
     }
 
+    // 2. Organizations (parent FK: parent_org_id → organizations)
+    if (DEMO_DATA.organizations?.length) {
+      const { error } = await supabase.from("organizations").upsert(DEMO_DATA.organizations, { onConflict: "uic" });
+      counts.organizations = DEMO_DATA.organizations.length;
+      if (error) results.organizations = `Error: ${error.message}`;
+    }
+
+    // 3. Personnel (FK: org_id → organizations)
+    if (DEMO_DATA.personnel?.length) {
+      const { error } = await supabase.from("personnel").upsert(DEMO_DATA.personnel, { onConflict: "id" });
+      counts.personnel = DEMO_DATA.personnel.length;
+      if (error) results.personnel = `Error: ${error.message}`;
+    }
+
+    // 4. Training Events (FK: org_id → organizations, task_id → tasks_master, evaluator_id → personnel)
+    if (DEMO_DATA.training_events?.length) {
+      const { error } = await supabase.from("training_events").upsert(DEMO_DATA.training_events, { onConflict: "id" });
+      counts.training_events = DEMO_DATA.training_events.length;
+      if (error) results.training_events = `Error: ${error.message}`;
+    }
+
+    // 5. METL Designations (FK: org_id → organizations, task_id → tasks_master)
+    if (DEMO_DATA.metl_designations?.length) {
+      const { error } = await supabase.from("metl_designations").upsert(DEMO_DATA.metl_designations, { onConflict: "id" });
+      counts.metl_designations = DEMO_DATA.metl_designations.length;
+      if (error) results.metl_designations = `Error: ${error.message}`;
+    }
+
+    // 6. Behavioral Observations (FK: subject_id/observer_id → personnel, org_id → organizations)
+    if (DEMO_DATA.behavioral_observations?.length) {
+      const { error } = await supabase.from("behavioral_observations").upsert(DEMO_DATA.behavioral_observations, { onConflict: "id" });
+      counts.behavioral_observations = DEMO_DATA.behavioral_observations.length;
+      if (error) results.behavioral_observations = `Error: ${error.message}`;
+    }
+
+    // 7. Capability Gaps (FK: assigned_to/created_by → personnel)
+    if (DEMO_DATA.capability_gaps?.length) {
+      const { error } = await supabase.from("capability_gaps").upsert(DEMO_DATA.capability_gaps, { onConflict: "id" });
+      counts.capability_gaps = DEMO_DATA.capability_gaps.length;
+      if (error) results.capability_gaps = `Error: ${error.message}`;
+    }
+
+    // 8. DOTMLPF Analyses (FK: gap_id → capability_gaps, analyst_id → personnel)
+    if (DEMO_DATA.dotmlpf_analyses?.length) {
+      const { error } = await supabase.from("dotmlpf_analyses").upsert(DEMO_DATA.dotmlpf_analyses, { onConflict: "id" });
+      counts.dotmlpf_analyses = DEMO_DATA.dotmlpf_analyses.length;
+      if (error) results.dotmlpf_analyses = `Error: ${error.message}`;
+    }
+
+    // 9. IDP Records (FK: personnel_id/supervisor_id → personnel, source_compass_id → compass_cycles)
+    // Insert IDPs before compass to avoid FK issues with source_compass_id
+    // Actually, IDPs reference compass cycles, so compass must go first
+    // But compass_cycles reference personnel, which is already inserted
+
+    // 9a. Compass Cycles (FK: subject_id/initiated_by → personnel)
+    if (DEMO_DATA.compass_cycles?.length) {
+      const { error } = await supabase.from("compass_cycles").upsert(DEMO_DATA.compass_cycles, { onConflict: "id" });
+      counts.compass_cycles = DEMO_DATA.compass_cycles.length;
+      if (error) results.compass_cycles = `Error: ${error.message}`;
+    }
+
+    // 9b. Compass Responses (FK: cycle_id → compass_cycles)
+    if (DEMO_DATA.compass_responses?.length) {
+      const { error } = await supabase.from("compass_responses").upsert(DEMO_DATA.compass_responses, { onConflict: "id" });
+      counts.compass_responses = DEMO_DATA.compass_responses.length;
+      if (error) results.compass_responses = `Error: ${error.message}`;
+    }
+
+    // 9c. IDP Records (FK: source_compass_id → compass_cycles)
+    if (DEMO_DATA.idp_records?.length) {
+      const { error } = await supabase.from("idp_records").upsert(DEMO_DATA.idp_records, { onConflict: "id" });
+      counts.idp_records = DEMO_DATA.idp_records.length;
+      if (error) results.idp_records = `Error: ${error.message}`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // PHASE 3: Return detailed counts
+    // ═══════════════════════════════════════════════════════════════════
     const hasErrors = Object.values(results).some((v) => v.startsWith("Error"));
 
+    // Build success messages for tables without errors
+    for (const [table, count] of Object.entries(counts)) {
+      if (!results[table]) {
+        results[table] = `${count} seeded`;
+      }
+    }
+
+    const totalRecords = Object.values(counts).reduce((sum, n) => sum + n, 0);
+
     return NextResponse.json({
-      message: hasErrors ? "Seeded with some errors" : "Demo data seeded successfully",
+      message: hasErrors
+        ? "Seeded with some errors — check results"
+        : `Demo data seeded successfully (${totalRecords} total records)`,
       results,
     });
   } catch (error) {
