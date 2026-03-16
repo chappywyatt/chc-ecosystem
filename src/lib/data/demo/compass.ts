@@ -16,12 +16,11 @@
  *   Responses: demo-8000-0000-0000-{12-digit seq}
  */
 
-import { ORG } from "./organizations";
 import { PER } from "./personnel";
 
 // ── Helpers ───────────────────────────────────────────────────────────────
-const cid = (n: number) => `demo-7000-0000-0000-${String(n).padStart(12, "0")}`;
-const rid = (n: number) => `demo-8000-0000-0000-${String(n).padStart(12, "0")}`;
+const cid = (n: number) => `de007000-0000-0000-0000-${String(n).padStart(12, "0")}`;
+const rid = (n: number) => `de008000-0000-0000-0000-${String(n).padStart(12, "0")}`;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // COMPASS CYCLES
@@ -35,9 +34,8 @@ export const COMPASS_CYCLES = [
     initiated_by: PER.CD_2ABCT_CH,
     assessment_period: "FY26-Q1",
     status: "closed",
-    created_date: "2025-10-15",
-    closed_date: "2025-12-20",
-    org_id: ORG.BN_4_9_CAV,
+    opens_at: "2025-10-15T00:00:00Z",
+    closes_at: "2025-12-20T00:00:00Z",
   },
 
   // ── Cycle 2: CPT Kim (2-5 CAV) — Developing, staffing/soldiering gap
@@ -47,9 +45,8 @@ export const COMPASS_CYCLES = [
     initiated_by: PER.CD_1ABCT_CH,
     assessment_period: "FY26-Q1",
     status: "closed",
-    created_date: "2025-10-20",
-    closed_date: "2025-12-22",
-    org_id: ORG.BN_2_5_CAV,
+    opens_at: "2025-10-20T00:00:00Z",
+    closes_at: "2025-12-22T00:00:00Z",
   },
 
   // ── Cycle 3: MAJ Okafor (3ABCT BDE) — Strong overall, accessibility gap
@@ -59,9 +56,8 @@ export const COMPASS_CYCLES = [
     initiated_by: PER.CD_DIV_CH,
     assessment_period: "FY26-Q1",
     status: "closed",
-    created_date: "2025-10-18",
-    closed_date: "2025-12-19",
-    org_id: ORG.BDE_1CD_3ABCT,
+    opens_at: "2025-10-18T00:00:00Z",
+    closes_at: "2025-12-19T00:00:00Z",
   },
 
   // ── Cycle 4: MAJ Odom (1AD 1BCT) — Strong competence, developing connection
@@ -71,9 +67,8 @@ export const COMPASS_CYCLES = [
     initiated_by: PER.AD_DIV_CH,
     assessment_period: "FY26-Q2",
     status: "reviewed",
-    created_date: "2026-01-10",
-    closed_date: "2026-03-12",
-    org_id: ORG.BDE_1AD_1BCT,
+    opens_at: "2026-01-10T00:00:00Z",
+    closes_at: "2026-03-12T00:00:00Z",
   },
 
   // ── Cycle 5: CPT Ogundimu (1-18 INF) — New to position, baseline
@@ -83,9 +78,8 @@ export const COMPASS_CYCLES = [
     initiated_by: PER.ID_2ABCT_CH,
     assessment_period: "FY26-Q2",
     status: "reviewed",
-    created_date: "2026-01-15",
-    closed_date: "2026-03-10",
-    org_id: ORG.BN_1_18_INF,
+    opens_at: "2026-01-15T00:00:00Z",
+    closes_at: "2026-03-10T00:00:00Z",
   },
 ];
 
@@ -103,11 +97,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(1),
     cycle_id: cid(1),
-    respondent_id: PER.CD_4_9_CAV_CH,
-    respondent_relationship: "self",
-    respondent_token: "token-c1-self",
+    respondent_role: "self",
+    respondent_token: "demo-token-8000-0001-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-05",
+    submitted_at: "2025-11-05T00:00:00Z",
     ratings: {
       spirituality: 5, humility: 4, authenticity: 5,
       army_values: 5, empathy: 5, discipline: 4,
@@ -122,11 +115,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(2),
     cycle_id: cid(1),
-    respondent_id: PER.CD_4_9_CAV_NCO,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c1-sub1",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0002-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-10",
+    submitted_at: "2025-11-10T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 3,
@@ -141,11 +133,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(3),
     cycle_id: cid(1),
-    respondent_id: PER.CD_1_5_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c1-sub2",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0003-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-12",
+    submitted_at: "2025-11-12T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 4, empathy: 5, discipline: 3,
@@ -160,11 +151,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(4),
     cycle_id: cid(1),
-    respondent_id: PER.CD_1_8_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c1-sub3",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0004-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-14",
+    submitted_at: "2025-11-14T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -179,11 +169,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(5),
     cycle_id: cid(1),
-    respondent_id: PER.CD_1_9_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c1-peer1",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0005-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-08",
+    submitted_at: "2025-11-08T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 3,
@@ -198,11 +187,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(6),
     cycle_id: cid(1),
-    respondent_id: PER.CD_3_16_FA_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c1-peer2",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0006-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-11",
+    submitted_at: "2025-11-11T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 3,
       army_values: 4, empathy: 5, discipline: 3,
@@ -217,11 +205,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(7),
     cycle_id: cid(1),
-    respondent_id: PER.CD_1_7_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c1-peer3",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0007-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-15",
+    submitted_at: "2025-11-15T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 3,
@@ -236,11 +223,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(8),
     cycle_id: cid(1),
-    respondent_id: PER.CD_2ABCT_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c1-sup1",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0008-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-01",
+    submitted_at: "2025-12-01T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -255,11 +241,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(9),
     cycle_id: cid(1),
-    respondent_id: PER.CD_DIV_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c1-sup2",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0009-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-05",
+    submitted_at: "2025-12-05T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 3,
@@ -278,11 +263,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(10),
     cycle_id: cid(2),
-    respondent_id: PER.CD_2_5_CAV_CH,
-    respondent_relationship: "self",
-    respondent_token: "token-c2-self",
+    respondent_role: "self",
+    respondent_token: "demo-token-8000-0010-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-08",
+    submitted_at: "2025-11-08T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 5,
       army_values: 5, empathy: 5, discipline: 4,
@@ -297,11 +281,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(11),
     cycle_id: cid(2),
-    respondent_id: PER.CD_2_5_CAV_NCO,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c2-sub1",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0011-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-12",
+    submitted_at: "2025-11-12T00:00:00Z",
     ratings: {
       spirituality: 5, humility: 4, authenticity: 5,
       army_values: 5, empathy: 5, discipline: 4,
@@ -316,11 +299,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(12),
     cycle_id: cid(2),
-    respondent_id: PER.CD_1_7_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c2-sub2",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0012-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-14",
+    submitted_at: "2025-11-14T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 5, authenticity: 4,
       army_values: 4, empathy: 5, discipline: 3,
@@ -335,11 +317,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(13),
     cycle_id: cid(2),
-    respondent_id: PER.CD_2_8_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c2-sub3",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0013-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-15",
+    submitted_at: "2025-11-15T00:00:00Z",
     ratings: {
       spirituality: 5, humility: 4, authenticity: 5,
       army_values: 5, empathy: 4, discipline: 4,
@@ -354,11 +335,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(14),
     cycle_id: cid(2),
-    respondent_id: PER.CD_2_12_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c2-peer1",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0014-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-10",
+    submitted_at: "2025-11-10T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 5, discipline: 3,
@@ -373,11 +353,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(15),
     cycle_id: cid(2),
-    respondent_id: PER.CD_1_82_FA_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c2-peer2",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0015-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-13",
+    submitted_at: "2025-11-13T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 5, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 3,
@@ -392,11 +371,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(16),
     cycle_id: cid(2),
-    respondent_id: PER.CD_6_9_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c2-peer3",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0016-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-16",
+    submitted_at: "2025-11-16T00:00:00Z",
     ratings: {
       spirituality: 5, humility: 4, authenticity: 5,
       army_values: 4, empathy: 5, discipline: 3,
@@ -411,11 +389,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(17),
     cycle_id: cid(2),
-    respondent_id: PER.CD_1ABCT_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c2-sup1",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0017-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-03",
+    submitted_at: "2025-12-03T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 5,
       army_values: 5, empathy: 5, discipline: 3,
@@ -430,11 +407,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(18),
     cycle_id: cid(2),
-    respondent_id: PER.CD_DIV_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c2-sup2",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0018-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-08",
+    submitted_at: "2025-12-08T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 3,
@@ -454,11 +430,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(19),
     cycle_id: cid(3),
-    respondent_id: PER.CD_3ABCT_CH,
-    respondent_relationship: "self",
-    respondent_token: "token-c3-self",
+    respondent_role: "self",
+    respondent_token: "demo-token-8000-0019-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-06",
+    submitted_at: "2025-11-06T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 5,
       army_values: 5, empathy: 4, discipline: 4,
@@ -473,11 +448,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(20),
     cycle_id: cid(3),
-    respondent_id: PER.CD_3ABCT_NCO,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c3-sub1",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0020-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-12",
+    submitted_at: "2025-11-12T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -492,11 +466,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(21),
     cycle_id: cid(3),
-    respondent_id: PER.CD_6_9_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c3-sub2",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0021-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-14",
+    submitted_at: "2025-11-14T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 4,
@@ -511,11 +484,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(22),
     cycle_id: cid(3),
-    respondent_id: PER.CD_2_7_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c3-sub3",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0022-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-15",
+    submitted_at: "2025-11-15T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -530,11 +502,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(23),
     cycle_id: cid(3),
-    respondent_id: PER.CD_3_8_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c3-peer1",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0023-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-10",
+    submitted_at: "2025-11-10T00:00:00Z",
     ratings: {
       spirituality: 5, humility: 4, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -549,11 +520,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(24),
     cycle_id: cid(3),
-    respondent_id: PER.CD_1_12_CAV_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c3-peer2",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0024-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-13",
+    submitted_at: "2025-11-13T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 5,
       army_values: 4, empathy: 5, discipline: 4,
@@ -568,11 +538,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(25),
     cycle_id: cid(3),
-    respondent_id: PER.CD_2_82_FA_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c3-peer3",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0025-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-11-16",
+    submitted_at: "2025-11-16T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 5,
@@ -587,11 +556,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(26),
     cycle_id: cid(3),
-    respondent_id: PER.CD_DIV_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c3-sup1",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0026-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-02",
+    submitted_at: "2025-12-02T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 4, empathy: 4, discipline: 4,
@@ -606,11 +574,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(27),
     cycle_id: cid(3),
-    respondent_id: PER.CD_DIV_DEPUTY,
-    respondent_relationship: "superior",
-    respondent_token: "token-c3-sup2",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0027-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2025-12-06",
+    submitted_at: "2025-12-06T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 4,
@@ -630,11 +597,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(28),
     cycle_id: cid(4),
-    respondent_id: PER.AD_1BCT_CH,
-    respondent_relationship: "self",
-    respondent_token: "token-c4-self",
+    respondent_role: "self",
+    respondent_token: "demo-token-8000-0028-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-01-25",
+    submitted_at: "2026-01-25T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 4,
       army_values: 5, empathy: 4, discipline: 5,
@@ -649,11 +615,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(29),
     cycle_id: cid(4),
-    respondent_id: PER.AD_1BCT_NCO,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c4-sub1",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0029-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-01",
+    submitted_at: "2026-02-01T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 3, discipline: 5,
@@ -668,11 +633,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(30),
     cycle_id: cid(4),
-    respondent_id: PER.AD_1_6_INF_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c4-sub2",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0030-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-03",
+    submitted_at: "2026-02-03T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 3,
       army_values: 5, empathy: 3, discipline: 4,
@@ -687,11 +651,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(31),
     cycle_id: cid(4),
-    respondent_id: PER.AD_1_35_AR_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c4-sub3",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0031-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-05",
+    submitted_at: "2026-02-05T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 3, authenticity: 4,
       army_values: 4, empathy: 3, discipline: 5,
@@ -706,11 +669,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(32),
     cycle_id: cid(4),
-    respondent_id: PER.AD_1_36_INF_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c4-peer1",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0032-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-01-30",
+    submitted_at: "2026-01-30T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 5, empathy: 3, discipline: 4,
@@ -725,11 +687,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(33),
     cycle_id: cid(4),
-    respondent_id: PER.AD_4_1_FA_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c4-peer2",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0033-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-02",
+    submitted_at: "2026-02-02T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 3,
       army_values: 4, empathy: 3, discipline: 5,
@@ -744,11 +705,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(34),
     cycle_id: cid(4),
-    respondent_id: PER.AD_2BCT_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c4-peer3",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0034-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-06",
+    submitted_at: "2026-02-06T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 3, discipline: 4,
@@ -763,11 +723,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(35),
     cycle_id: cid(4),
-    respondent_id: PER.AD_DIV_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c4-sup1",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0035-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-20",
+    submitted_at: "2026-02-20T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 4, empathy: 3, discipline: 5,
@@ -782,11 +741,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(36),
     cycle_id: cid(4),
-    respondent_id: PER.AD_DIV_DEPUTY,
-    respondent_relationship: "superior",
-    respondent_token: "token-c4-sup2",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0036-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-25",
+    submitted_at: "2026-02-25T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 3, authenticity: 4,
       army_values: 5, empathy: 3, discipline: 4,
@@ -806,11 +764,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(37),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_18_INF_CH,
-    respondent_relationship: "self",
-    respondent_token: "token-c5-self",
+    respondent_role: "self",
+    respondent_token: "demo-token-8000-0037-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-01-28",
+    submitted_at: "2026-01-28T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 4, authenticity: 3,
       army_values: 4, empathy: 4, discipline: 3,
@@ -825,11 +782,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(38),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_18_INF_NCO,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c5-sub1",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0038-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-02",
+    submitted_at: "2026-02-02T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 4, authenticity: 3,
       army_values: 3, empathy: 4, discipline: 2,
@@ -844,11 +800,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(39),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_26_INF_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c5-sub2",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0039-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-04",
+    submitted_at: "2026-02-04T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 3, authenticity: 3,
       army_values: 4, empathy: 3, discipline: 3,
@@ -863,11 +818,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(40),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_4_CAV_CH,
-    respondent_relationship: "subordinate",
-    respondent_token: "token-c5-sub3",
+    respondent_role: "subordinate",
+    respondent_token: "demo-token-8000-0040-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-06",
+    submitted_at: "2026-02-06T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 3,
       army_values: 3, empathy: 4, discipline: 2,
@@ -882,11 +836,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(41),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_7_FA_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c5-peer1",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0041-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-01",
+    submitted_at: "2026-02-01T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 4, authenticity: 3,
       army_values: 4, empathy: 3, discipline: 3,
@@ -901,11 +854,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(42),
     cycle_id: cid(5),
-    respondent_id: PER.ID_2_34_AR_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c5-peer2",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0042-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-05",
+    submitted_at: "2026-02-05T00:00:00Z",
     ratings: {
       spirituality: 4, humility: 3, authenticity: 4,
       army_values: 3, empathy: 3, discipline: 2,
@@ -920,11 +872,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(43),
     cycle_id: cid(5),
-    respondent_id: PER.ID_1_63_AR_CH,
-    respondent_relationship: "peer",
-    respondent_token: "token-c5-peer3",
+    respondent_role: "peer",
+    respondent_token: "demo-token-8000-0043-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-07",
+    submitted_at: "2026-02-07T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 3, authenticity: 3,
       army_values: 4, empathy: 4, discipline: 3,
@@ -939,11 +890,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(44),
     cycle_id: cid(5),
-    respondent_id: PER.ID_2ABCT_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c5-sup1",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0044-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-20",
+    submitted_at: "2026-02-20T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 3, authenticity: 3,
       army_values: 4, empathy: 3, discipline: 3,
@@ -958,11 +908,10 @@ export const COMPASS_RESPONSES = [
   {
     id: rid(45),
     cycle_id: cid(5),
-    respondent_id: PER.ID_DIV_CH,
-    respondent_relationship: "superior",
-    respondent_token: "token-c5-sup2",
+    respondent_role: "superior",
+    respondent_token: "demo-token-8000-0045-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     is_complete: true,
-    completed_date: "2026-02-25",
+    submitted_at: "2026-02-25T00:00:00Z",
     ratings: {
       spirituality: 3, humility: 4, authenticity: 3,
       army_values: 3, empathy: 3, discipline: 2,

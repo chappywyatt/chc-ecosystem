@@ -46,14 +46,19 @@ export async function POST(request: NextRequest) {
     ];
 
     for (const table of deleteOrder) {
-      // For demo data tables, delete rows with demo- prefix IDs
+      // For demo data tables, delete rows with de00* UUID prefix
       // For reference tables, delete all (they'll be re-seeded)
       const isRefTable = ["tasks_master", "behavioral_indicators", "compass_qualities"].includes(table);
       if (isRefTable) {
         const { error } = await supabase.from(table).delete().neq("id", "");
         if (error) results[`delete_${table}`] = `Error: ${error.message}`;
       } else {
-        const { error } = await supabase.from(table).delete().like("id", "demo-%");
+        // UUID range query: all UUIDs starting with de00xxxx
+        const { error } = await supabase
+          .from(table)
+          .delete()
+          .gte("id", "de000000-0000-0000-0000-000000000000")
+          .lte("id", "de00ffff-ffff-ffff-ffff-ffffffffffff");
         if (error) results[`delete_${table}`] = `Error: ${error.message}`;
       }
     }
@@ -160,7 +165,56 @@ export async function POST(request: NextRequest) {
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // PHASE 3: Return detailed counts
+    // PHASE 3: Create demo auth user + user_profile for RLS access
+    // ═══════════════════════════════════════════════════════════════════
+    const DEMO_EMAIL = "demo@chc-ecosystem.mil";
+    const DEMO_PASSWORD = "DemoAccess2026!";
+
+    try {
+      // Check if demo user already exists
+      const { data: listData } = await supabase.auth.admin.listUsers();
+      const existingDemo = listData?.users?.find((u) => u.email === DEMO_EMAIL);
+
+      let demoUserId: string;
+      if (existingDemo) {
+        demoUserId = existingDemo.id;
+        // Update password in case it changed
+        await supabase.auth.admin.updateUserById(demoUserId, { password: DEMO_PASSWORD });
+      } else {
+        const { data: newUser, error: userError } = await supabase.auth.admin.createUser({
+          email: DEMO_EMAIL,
+          password: DEMO_PASSWORD,
+          email_confirm: true,
+        });
+        if (userError) throw userError;
+        demoUserId = newUser.user.id;
+      }
+
+      // Upsert user_profile linking demo user to corps org
+      const corpsOrgId = DEMO_DATA.organizations[0]?.id;
+      const corpsChId = DEMO_DATA.personnel[0]?.id;
+      const { error: profileError } = await supabase.from("user_profiles").upsert(
+        {
+          id: demoUserId,
+          personnel_id: corpsChId,
+          org_id: corpsOrgId,
+          role: "admin",
+          display_name: "Demo Admin (III Corps CH)",
+          is_demo: true,
+        },
+        { onConflict: "id" }
+      );
+      if (profileError) {
+        results.demo_user = `Error: ${profileError.message}`;
+      } else {
+        results.demo_user = `Created (${DEMO_EMAIL})`;
+      }
+    } catch (authErr) {
+      results.demo_user = `Error: ${authErr instanceof Error ? authErr.message : "Unknown"}`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // PHASE 4: Return detailed counts
     // ═══════════════════════════════════════════════════════════════════
     const hasErrors = Object.values(results).some((v) => v.startsWith("Error"));
 

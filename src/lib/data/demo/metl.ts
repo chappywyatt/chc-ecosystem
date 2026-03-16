@@ -24,7 +24,7 @@ import { ORG } from "./organizations";
 
 // ── Sequential ID helper ─────────────────────────────────────────────────
 let _seq = 0;
-const mid = () => `demo-9000-0000-0000-${String(++_seq).padStart(12, "0")}`;
+const mid = () => `de009000-0000-0000-0000-${String(++_seq).padStart(12, "0")}`;
 
 // ── Standard designated date ─────────────────────────────────────────────
 const FY26 = "2025-10-01";

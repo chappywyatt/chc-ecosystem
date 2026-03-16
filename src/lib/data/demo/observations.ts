@@ -19,7 +19,7 @@
 import { ORG } from "./organizations";
 import { PER } from "./personnel";
 
-const oid = (n: number) => `demo-3000-0000-0000-${String(n).padStart(12, "0")}`;
+const oid = (n: number) => `de003000-0000-0000-0000-${String(n).padStart(12, "0")}`;
 
 // Helper to build a ratings object from compact notation
 type R = { rating: number; notes?: string };

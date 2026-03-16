@@ -64,7 +64,18 @@ export function useAuth() {
         setUser(authUser);
         await fetchProfile(authUser.id);
       } else if (isDemoMode) {
-        setProfile(DEMO_PROFILE);
+        // Auto-sign-in with demo credentials (created by /api/seed)
+        const { data: signInData } = await supabase.auth.signInWithPassword({
+          email: "demo@chc-ecosystem.mil",
+          password: "DemoAccess2026!",
+        });
+        if (signInData?.user) {
+          setUser(signInData.user);
+          await fetchProfile(signInData.user.id);
+        } else {
+          // Fallback if demo user hasn't been seeded yet
+          setProfile(DEMO_PROFILE);
+        }
       }
       setLoading(false);
     };

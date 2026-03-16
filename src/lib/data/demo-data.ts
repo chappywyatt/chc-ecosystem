@@ -4,7 +4,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  *
  * Deterministic seed data for the CHC Digital Ecosystem.
- * All IDs use the format "demo-xxxx-xxxx-xxxx-xxxxxxxxxxxx".
+ * All IDs use valid UUID format with "de00" prefix: "de00xxxx-xxxx-xxxx-0000-xxxxxxxxxxxx".
  *
  * III Armored Corps (Fort Cavazos, TX)
  * ├── 1st Cavalry Division (Fort Cavazos, TX)

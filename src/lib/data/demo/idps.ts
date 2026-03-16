@@ -12,7 +12,7 @@
 import { PER } from "./personnel";
 
 // ── Helper for sequential IDP IDs ────────────────────────────────────────
-const iid = (n: number) => `demo-6000-0000-0000-${String(n).padStart(12, "0")}`;
+const iid = (n: number) => `de006000-0000-0000-0000-${String(n).padStart(12, "0")}`;
 
 export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
@@ -21,14 +21,11 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(1),
-    subject_id: PER.CD_2_5_CAV_CH,
-    mentor_id: PER.CD_1ABCT_CH,
+    personnel_id: PER.CD_2_5_CAV_CH,
+    supervisor_id: PER.CD_1ABCT_CH,
     status: "active",
     created_date: "2026-01-05",
-    last_updated: "2026-02-15",
-    completed_date: null,
-    period: "FY26",
-    source_compass_id: "demo-7000-0000-0000-000000000002",
+    source_compass_id: "de007000-0000-0000-0000-000000000002",
     source_observation_ids: [],
     strengths_to_maximize: [
       "Exceptional empathy and counseling — consistently rated 4-5 across all respondents",
@@ -86,14 +83,11 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(2),
-    subject_id: PER.AD_1BCT_CH,
-    mentor_id: PER.AD_DIV_CH,
+    personnel_id: PER.AD_1BCT_CH,
+    supervisor_id: PER.AD_DIV_CH,
     status: "active",
     created_date: "2026-03-01",
-    last_updated: "2026-03-12",
-    completed_date: null,
-    period: "FY26",
-    source_compass_id: "demo-7000-0000-0000-000000000004",
+    source_compass_id: "de007000-0000-0000-0000-000000000004",
     source_observation_ids: [],
     strengths_to_maximize: [
       "Outstanding competence in preaching, teaching, and soldiering — rated 4-5 consistently",
@@ -151,14 +145,11 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(3),
-    subject_id: PER.ID_1_18_INF_CH,
-    mentor_id: PER.ID_2ABCT_CH,
+    personnel_id: PER.ID_1_18_INF_CH,
+    supervisor_id: PER.ID_2ABCT_CH,
     status: "active",
     created_date: "2026-03-12",
-    last_updated: "2026-03-15",
-    completed_date: null,
-    period: "FY26",
-    source_compass_id: "demo-7000-0000-0000-000000000005",
+    source_compass_id: "de007000-0000-0000-0000-000000000005",
     source_observation_ids: [],
     strengths_to_maximize: [
       "Genuine humility and willingness to learn — rated highly by peers",
@@ -223,14 +214,11 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(4),
-    subject_id: PER.CD_4_9_CAV_CH,
-    mentor_id: PER.CD_2ABCT_CH,
+    personnel_id: PER.CD_4_9_CAV_CH,
+    supervisor_id: PER.CD_2ABCT_CH,
     status: "active",
     created_date: "2026-01-10",
-    last_updated: "2026-02-28",
-    completed_date: null,
-    period: "FY26",
-    source_compass_id: "demo-7000-0000-0000-000000000001",
+    source_compass_id: "de007000-0000-0000-0000-000000000001",
     source_observation_ids: [],
     strengths_to_maximize: [
       "Excellent visibility and affability — consistently rated 4-5 by all respondent groups",
@@ -281,15 +269,12 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(5),
-    subject_id: PER.CD_6_9_CAV_CH,
-    mentor_id: PER.CD_3ABCT_CH,
+    personnel_id: PER.CD_6_9_CAV_CH,
+    supervisor_id: PER.CD_3ABCT_CH,
     status: "active",
     created_date: "2026-01-20",
-    last_updated: "2026-03-01",
-    completed_date: null,
-    period: "FY26",
     source_compass_id: null,
-    source_observation_ids: ["demo-3000-0000-0000-000000000005"],
+    source_observation_ids: ["de003000-0000-0000-0000-000000000005"],
     strengths_to_maximize: [
       "Strong pastoral presence during field exercises — observed engaging Soldiers at every opportunity",
       "Authentic preaching style that resonates with junior enlisted Soldiers",
@@ -346,15 +331,12 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(6),
-    subject_id: PER.CD_2_5_CAV_NCO,
-    mentor_id: PER.CD_1ABCT_NCO,
+    personnel_id: PER.CD_2_5_CAV_NCO,
+    supervisor_id: PER.CD_1ABCT_NCO,
     status: "active",
     created_date: "2026-02-01",
-    last_updated: "2026-03-10",
-    completed_date: null,
-    period: "FY26",
     source_compass_id: null,
-    source_observation_ids: ["demo-3000-0000-0000-000000000014"],
+    source_observation_ids: ["de003000-0000-0000-0000-000000000014"],
     strengths_to_maximize: [
       "Strong rapport with Soldiers at the squad and platoon level — trusted and approachable",
       "Consistent physical fitness; leads from the front in PT and field environments",
@@ -410,13 +392,10 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(7),
-    subject_id: PER.CD_1_9_CAV_CH,
-    mentor_id: PER.CD_2ABCT_CH,
+    personnel_id: PER.CD_1_9_CAV_CH,
+    supervisor_id: PER.CD_2ABCT_CH,
     status: "completed",
     created_date: "2024-11-01",
-    last_updated: "2025-09-15",
-    completed_date: "2025-09-15",
-    period: "FY25",
     source_compass_id: null,
     source_observation_ids: [],
     strengths_to_maximize: [
@@ -467,13 +446,10 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(8),
-    subject_id: PER.AD_1_6_INF_CH,
-    mentor_id: PER.AD_1BCT_CH,
+    personnel_id: PER.AD_1_6_INF_CH,
+    supervisor_id: PER.AD_1BCT_CH,
     status: "completed",
     created_date: "2024-10-15",
-    last_updated: "2025-08-30",
-    completed_date: "2025-08-30",
-    period: "FY25",
     source_compass_id: null,
     source_observation_ids: [],
     strengths_to_maximize: [
@@ -531,13 +507,10 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(9),
-    subject_id: PER.CD_3_8_CAV_CH,
-    mentor_id: PER.CD_3ABCT_CH,
+    personnel_id: PER.CD_3_8_CAV_CH,
+    supervisor_id: PER.CD_3ABCT_CH,
     status: "draft",
     created_date: "2026-03-10",
-    last_updated: "2026-03-10",
-    completed_date: null,
-    period: "FY26",
     source_compass_id: null,
     source_observation_ids: [],
     strengths_to_maximize: [
@@ -588,13 +561,10 @@ export const IDP_RECORDS = [
   // ═══════════════════════════════════════════════════════════════════════
   {
     id: iid(10),
-    subject_id: PER.AD_1_6_INF_NCO,
-    mentor_id: PER.AD_1BCT_NCO,
+    personnel_id: PER.AD_1_6_INF_NCO,
+    supervisor_id: PER.AD_1BCT_NCO,
     status: "active",
     created_date: "2026-01-15",
-    last_updated: "2026-03-05",
-    completed_date: null,
-    period: "FY26",
     source_compass_id: null,
     source_observation_ids: [],
     strengths_to_maximize: [
